@@ -500,7 +500,7 @@ const DentistryWebsite = () => {
             >
               <div className="aspect-[4/5] overflow-hidden rounded-2xl border bg-muted shadow-lg">
                 <img
-                  src="/dr-andreea.png"
+                  src={`${import.meta.env.BASE_URL}dr-andreea.png`}
                   alt="Dr. Andreea de la CMArt Dent"
                   className="h-full w-full object-cover"
                 />
