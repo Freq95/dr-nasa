@@ -689,7 +689,7 @@ const DentistryWebsite = () => {
       {/* Footer */}
       <footer className="border-t bg-muted/50 py-12">
         <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-4 gap-8 mb-8">
+          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-[1.25fr_0.8fr_1fr_0.85fr_0.85fr]">
             <div>
               <div className="flex items-center gap-2 mb-4">
                 <Smile className="h-6 w-6 text-primary" />
@@ -721,6 +721,26 @@ const DentistryWebsite = () => {
                 <li className="text-muted-foreground">Pedodonție</li>
                 <li className="text-muted-foreground">Odontoterapie</li>
               </ul>
+            </div>
+
+            <div>
+              <h3 className="font-semibold mb-4">Program</h3>
+              <dl className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-1 text-sm text-muted-foreground">
+                <dt>Luni</dt>
+                <dd>10-18</dd>
+                <dt>Marti</dt>
+                <dd>12-20</dd>
+                <dt>Miercuri</dt>
+                <dd>10-18</dd>
+                <dt>Joi</dt>
+                <dd>12-20</dd>
+                <dt>Vineri</dt>
+                <dd>10-18</dd>
+                <dt>Sambata</dt>
+                <dd>inchis</dd>
+                <dt>Duminica</dt>
+                <dd>inchis</dd>
+              </dl>
             </div>
 
             <div>
@@ -757,29 +777,8 @@ const DentistryWebsite = () => {
             </div>
           </div>
 
-          <div className="border-t pt-8">
-            <div className="mb-8 grid gap-4 text-sm text-muted-foreground md:grid-cols-[auto_1fr] md:items-start">
-              <h3 className="font-semibold text-foreground">Program</h3>
-              <dl className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-1 sm:grid-cols-[auto_1fr_auto_1fr] lg:grid-cols-[auto_1fr_auto_1fr_auto_1fr_auto_1fr]">
-                <dt>Luni</dt>
-                <dd>10-18</dd>
-                <dt>Marti</dt>
-                <dd>12-20</dd>
-                <dt>Miercuri</dt>
-                <dd>10-18</dd>
-                <dt>Joi</dt>
-                <dd>12-20</dd>
-                <dt>Vineri</dt>
-                <dd>10-18</dd>
-                <dt>Sambata</dt>
-                <dd>inchis</dd>
-                <dt>Duminica</dt>
-                <dd>inchis</dd>
-              </dl>
-            </div>
-            <div className="text-center text-sm text-muted-foreground">
-              <p>&copy; 2024 CMArt Dent. Toate drepturile rezervate.</p>
-            </div>
+          <div className="mt-8 border-t pt-8 text-center text-sm text-muted-foreground">
+            <p>&copy; 2024 CMArt Dent. Toate drepturile rezervate.</p>
           </div>
         </div>
       </footer>
