@@ -1,14 +1,13 @@
 "use client";
 
 import * as React from "react";
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Phone,
   Mail,
   MessageCircle,
   MapPin,
-  Check,
   ChevronDown,
   Star,
   Shield,
@@ -18,12 +17,16 @@ import {
   Calendar,
   Smile,
   Heart,
-  Facebook,
-  Twitter,
-  Instagram,
-  Linkedin,
+  Activity,
+  Baby,
+  BriefcaseMedical,
   ArrowRight,
   Menu,
+  Scissors,
+  ShieldPlus,
+  Sparkles,
+  Stethoscope,
+  Syringe,
   X as XIcon,
 } from "lucide-react";
 
@@ -63,68 +66,6 @@ const Button = React.forwardRef<
   );
 });
 Button.displayName = "Button";
-
-// Input Component
-const Input = React.forwardRef<
-  HTMLInputElement,
-  React.InputHTMLAttributes<HTMLInputElement>
->(({ className, type, ...props }, ref) => {
-  return (
-    <input
-      type={type}
-      className={cn(
-        "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
-        className
-      )}
-      ref={ref}
-      {...props}
-    />
-  );
-});
-Input.displayName = "Input";
-
-// Textarea Component
-const Textarea = React.forwardRef<
-  HTMLTextAreaElement,
-  React.TextareaHTMLAttributes<HTMLTextAreaElement>
->(({ className, ...props }, ref) => {
-  return (
-    <textarea
-      className={cn(
-        "flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
-        className
-      )}
-      ref={ref}
-      {...props}
-    />
-  );
-});
-Textarea.displayName = "Textarea";
-
-// Badge Component
-const Badge = ({
-  className,
-  variant = "default",
-  ...props
-}: React.HTMLAttributes<HTMLDivElement> & {
-  variant?: "default" | "secondary";
-}) => {
-  const variants = {
-    default: "border-transparent bg-primary text-primary-foreground hover:bg-primary/80",
-    secondary: "border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80",
-  };
-
-  return (
-    <div
-      className={cn(
-        "inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
-        variants[variant],
-        className
-      )}
-      {...props}
-    />
-  );
-};
 
 // Card Components
 const Card = React.forwardRef<
@@ -258,10 +199,9 @@ const DentistryWebsite = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [appointmentModalOpen, setAppointmentModalOpen] = useState(false);
   const [expandedFaq, setExpandedFaq] = useState<number | null>(0);
-  const [billingCycle, setBillingCycle] = useState<"monthly" | "annually">("monthly");
-  const dentistPhone = "+40722123456";
-  const displayPhone = "0722 123 456";
-  const whatsappPhone = "40722123456";
+  const dentistPhone = "+40767161774";
+  const displayPhone = "0767 161 774";
+  const whatsappPhone = "40767161774";
   const whatsappMessage =
     "Buna ziua! As dori sa programez o consultatie stomatologica. Ma puteti ajuta cu un interval disponibil?";
 
@@ -339,55 +279,6 @@ const DentistryWebsite = () => {
     },
   ];
 
-  const pricingPlans = [
-    {
-      name: "Ingrijire de baza",
-      price: billingCycle === "monthly" ? 49 : 470,
-      description: "Ingrijire dentara esentiala pentru pacienti individuali",
-      features: [
-        "2 igienizari pe an",
-        "Radiografie anuala",
-        "Consultatii stomatologice",
-        "10% reducere la tratamente",
-        "Acces la urgente",
-      ],
-      icon: Shield,
-      badge: "Popular",
-    },
-    {
-      name: "Plan familie",
-      price: billingCycle === "monthly" ? 129 : 1240,
-      description: "Ingrijire completa pentru intreaga familie",
-      features: [
-        "Pana la 4 membri ai familiei",
-        "Igienizari nelimitate",
-        "Radiografii incluse",
-        "20% reducere la tratamente",
-        "Programari prioritare",
-        "Consult ortodontic",
-      ],
-      icon: Users,
-      badge: "Cel mai bun",
-      highlighted: true,
-    },
-    {
-      name: "Premium",
-      price: billingCycle === "monthly" ? 199 : 1910,
-      description: "Pachet complet pentru sanatate dentara",
-      features: [
-        "Vizite nelimitate",
-        "Preventie completa",
-        "Consultatii estetice",
-        "30% reducere la tratamente",
-        "Linie de urgenta 24/7",
-        "Albire dentara inclusa",
-        "Coordonator dedicat",
-      ],
-      icon: Award,
-      badge: "Premium",
-    },
-  ];
-
   return (
     <div className="min-h-screen bg-background text-foreground">
       {/* Navigation */}
@@ -406,9 +297,6 @@ const DentistryWebsite = () => {
               </a>
               <a href="#about" className="text-sm font-medium hover:text-primary transition-colors">
                 Despre
-              </a>
-              <a href="#pricing" className="text-sm font-medium hover:text-primary transition-colors">
-                Planuri
               </a>
               <a href="#testimonials" className="text-sm font-medium hover:text-primary transition-colors">
                 Pareri
@@ -436,9 +324,6 @@ const DentistryWebsite = () => {
               </a>
               <a href="#about" className="block text-sm font-medium hover:text-primary transition-colors">
                 Despre
-              </a>
-              <a href="#pricing" className="block text-sm font-medium hover:text-primary transition-colors">
-                Planuri
               </a>
               <a href="#testimonials" className="block text-sm font-medium hover:text-primary transition-colors">
                 Pareri
@@ -553,42 +438,42 @@ const DentistryWebsite = () => {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
               {
-                icon: Award,
+                icon: Syringe,
                 title: "Implanturi",
                 description: "Solutii moderne pentru inlocuirea dintilor lipsa si refacerea confortului la masticatie.",
               },
               {
-                icon: Shield,
+                icon: Scissors,
                 title: "Chirurgie",
                 description: "Interventii chirurgicale orale realizate cu atentie, planificare si control al disconfortului.",
               },
               {
-                icon: Smile,
+                icon: Sparkles,
                 title: "Albire Dentară",
                 description: "Tratamente de albire pentru un zambet mai luminos, cu evaluare si recomandari personalizate.",
               },
               {
-                icon: Heart,
+                icon: Stethoscope,
                 title: "Endodonție",
                 description: "Tratamentul canalelor radiculare pentru salvarea dintilor afectati si eliminarea durerii.",
               },
               {
-                icon: Clock,
+                icon: Activity,
                 title: "Parodontologie",
                 description: "Diagnostic si tratament pentru afectiunile gingivale si sanatatea tesuturilor de sustinere.",
               },
               {
-                icon: Users,
+                icon: BriefcaseMedical,
                 title: "Protetica Dentara",
                 description: "Coroane, punti si lucrari protetice pentru functie, estetica si stabilitate pe termen lung.",
               },
               {
-                icon: Smile,
+                icon: Baby,
                 title: "Pedodonție",
                 description: "Ingrijire stomatologica pentru copii, intr-un ritm bland si adaptat varstei lor.",
               },
               {
-                icon: Shield,
+                icon: ShieldPlus,
                 title: "Odontoterapie",
                 description: "Tratamente pentru carii si restaurari dentare menite sa pastreze structura naturala a dintelui.",
               },
@@ -607,97 +492,6 @@ const DentistryWebsite = () => {
                     <CardDescription>{feature.description}</CardDescription>
                   </CardHeader>
                 </Card>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Pricing Section */}
-      <section id="pricing" className="py-20 lg:py-32 bg-muted/50">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Planuri accesibile pentru ingrijire dentara
-            </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
-              Alege planul potrivit nevoilor tale. Fiecare optiune include ingrijire atenta din partea echipei noastre.
-            </p>
-
-            {/* Billing Toggle */}
-            <div className="flex items-center justify-center gap-3 mb-8">
-              <span className={`text-sm font-medium ${billingCycle === "monthly" ? "text-primary" : "text-muted-foreground"}`}>
-                Lunar
-              </span>
-              <button
-                onClick={() => setBillingCycle(billingCycle === "monthly" ? "annually" : "monthly")}
-                className="relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background bg-input"
-                role="switch"
-                aria-checked={billingCycle === "annually"}
-              >
-                <span
-                  className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-background shadow-lg ring-0 transition duration-200 ease-in-out ${
-                    billingCycle === "annually" ? "translate-x-5" : "translate-x-0"
-                  }`}
-                />
-              </button>
-              <span className={`text-sm font-medium ${billingCycle === "annually" ? "text-primary" : "text-muted-foreground"}`}>
-                Anual <span className="text-xs">(economisesti 20%)</span>
-              </span>
-            </div>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {pricingPlans.map((plan, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                viewport={{ once: true }}
-              >
-                <div
-                  className={cn(
-                    "relative h-full overflow-hidden rounded-lg border p-6 bg-background supports-[backdrop-filter]:bg-background/40 backdrop-blur-xs",
-                    plan.highlighted && "border-primary ring-2 ring-primary"
-                  )}
-                >
-                  <div className="flex items-center gap-2 mb-4">
-                    <div className="flex items-center justify-center rounded-full border p-1.5">
-                      <plan.icon className="h-4 w-4" />
-                    </div>
-                    <h3 className="text-muted-foreground font-mono text-sm">{plan.name}</h3>
-                    <Badge variant="secondary" className="ml-auto">
-                      {plan.badge}
-                    </Badge>
-                  </div>
-
-                  <div className="mb-4">
-                    <span className="text-4xl font-bold">${plan.price}</span>
-                    <span className="text-muted-foreground text-sm">
-                      /{billingCycle === "monthly" ? "luna" : "an"}
-                    </span>
-                  </div>
-
-                  <p className="text-sm text-muted-foreground mb-6">{plan.description}</p>
-
-                  <ul className="space-y-3 mb-6">
-                    {plan.features.map((feature, idx) => (
-                      <li key={idx} className="flex items-start gap-2">
-                        <Check className="h-5 w-5 text-primary shrink-0 mt-0.5" />
-                        <span className="text-sm">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-
-                  <Button
-                    className="w-full"
-                    variant={plan.highlighted ? "default" : "outline"}
-                    onClick={openAppointmentModal}
-                  >
-                    Alege planul
-                  </Button>
-                </div>
               </motion.div>
             ))}
           </div>
@@ -822,9 +616,8 @@ const DentistryWebsite = () => {
                   <div>
                     <div className="font-semibold mb-1">Adresa</div>
                     <div className="text-muted-foreground">
-                      Targu Jiu<br />
-                      Judetul Gorj<br />
-                      Romania
+                      Strada Republicii 6, sc.1, ap.3<br />
+                      210152 Târgu Jiu
                     </div>
                   </div>
                 </div>
@@ -836,8 +629,12 @@ const DentistryWebsite = () => {
                   <div>
                     <div className="font-semibold mb-1">Program</div>
                     <div className="text-muted-foreground">
-                      Luni-Vineri: 08:00 - 18:00<br />
-                      Sambata: 09:00 - 14:00<br />
+                      Luni: 10-18<br />
+                      Marti: 12-20<br />
+                      Miercuri: 10-18<br />
+                      Joi: 12-20<br />
+                      Vineri: 10-18<br />
+                      Sambata: inchis<br />
                       Duminica: inchis
                     </div>
                   </div>
@@ -856,7 +653,7 @@ const DentistryWebsite = () => {
                 <div className="overflow-hidden rounded-lg border">
                   <iframe
                     title="Harta CMArt Dent Tg. Jiu"
-                    src="https://www.google.com/maps?q=Targu%20Jiu%2C%20Romania&output=embed"
+                    src="https://www.google.com/maps?q=Strada%20Republicii%206%2C%20sc.1%2C%20ap.3%2C%20210152%20T%C3%A2rgu%20Jiu&output=embed"
                     className="h-[360px] w-full"
                     loading="lazy"
                     referrerPolicy="no-referrer-when-downgrade"
@@ -890,7 +687,6 @@ const DentistryWebsite = () => {
               <ul className="space-y-2 text-sm">
                 <li><a href="#services" className="text-muted-foreground hover:text-primary transition-colors">Servicii</a></li>
                 <li><a href="#about" className="text-muted-foreground hover:text-primary transition-colors">Despre noi</a></li>
-                <li><a href="#pricing" className="text-muted-foreground hover:text-primary transition-colors">Planuri</a></li>
                 <li><a href="#contact" className="text-muted-foreground hover:text-primary transition-colors">Contact</a></li>
               </ul>
             </div>
@@ -910,21 +706,23 @@ const DentistryWebsite = () => {
             </div>
 
             <div>
-              <h3 className="font-semibold mb-4">Urmareste-ne</h3>
-              <div className="flex gap-4">
-                <a href="#" className="rounded-full bg-primary/10 p-2 hover:bg-primary/20 transition-colors">
-                  <Facebook className="h-5 w-5 text-primary" />
-                </a>
-                <a href="#" className="rounded-full bg-primary/10 p-2 hover:bg-primary/20 transition-colors">
-                  <Twitter className="h-5 w-5 text-primary" />
-                </a>
-                <a href="#" className="rounded-full bg-primary/10 p-2 hover:bg-primary/20 transition-colors">
-                  <Instagram className="h-5 w-5 text-primary" />
-                </a>
-                <a href="#" className="rounded-full bg-primary/10 p-2 hover:bg-primary/20 transition-colors">
-                  <Linkedin className="h-5 w-5 text-primary" />
-                </a>
-              </div>
+              <h3 className="font-semibold mb-4">Program</h3>
+              <dl className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-1 text-sm text-muted-foreground">
+                <dt>Luni</dt>
+                <dd>10-18</dd>
+                <dt>Marti</dt>
+                <dd>12-20</dd>
+                <dt>Miercuri</dt>
+                <dd>10-18</dd>
+                <dt>Joi</dt>
+                <dd>12-20</dd>
+                <dt>Vineri</dt>
+                <dd>10-18</dd>
+                <dt>Sambata</dt>
+                <dd>inchis</dd>
+                <dt>Duminica</dt>
+                <dd>inchis</dd>
+              </dl>
             </div>
           </div>
 
