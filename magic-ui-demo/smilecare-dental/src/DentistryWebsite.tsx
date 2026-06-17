@@ -1,0 +1,996 @@
+"use client";
+
+import * as React from "react";
+import { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  Phone,
+  Mail,
+  MessageCircle,
+  MapPin,
+  Check,
+  ChevronDown,
+  Star,
+  Shield,
+  Clock,
+  Award,
+  Users,
+  Calendar,
+  Smile,
+  Heart,
+  Facebook,
+  Twitter,
+  Instagram,
+  Linkedin,
+  ArrowRight,
+  Menu,
+  X as XIcon,
+} from "lucide-react";
+
+// Utility function
+function cn(...inputs: any[]) {
+  return inputs.filter(Boolean).join(" ");
+}
+
+// Button Component
+const Button = React.forwardRef<
+  HTMLButtonElement,
+  React.ButtonHTMLAttributes<HTMLButtonElement> & {
+    variant?: "default" | "outline" | "ghost";
+    size?: "default" | "sm" | "lg";
+  }
+>(({ className, variant = "default", size = "default", ...props }, ref) => {
+  const baseStyles =
+    "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 cursor-pointer";
+  const variants = {
+    default: "bg-primary text-primary-foreground hover:bg-primary/90 shadow-sm",
+    outline:
+      "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
+    ghost: "hover:bg-accent hover:text-accent-foreground",
+  };
+  const sizes = {
+    default: "h-10 px-4 py-2",
+    sm: "h-9 rounded-md px-3",
+    lg: "h-11 rounded-md px-8",
+  };
+
+  return (
+    <button
+      className={cn(baseStyles, variants[variant], sizes[size], className)}
+      ref={ref}
+      {...props}
+    />
+  );
+});
+Button.displayName = "Button";
+
+// Input Component
+const Input = React.forwardRef<
+  HTMLInputElement,
+  React.InputHTMLAttributes<HTMLInputElement>
+>(({ className, type, ...props }, ref) => {
+  return (
+    <input
+      type={type}
+      className={cn(
+        "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
+        className
+      )}
+      ref={ref}
+      {...props}
+    />
+  );
+});
+Input.displayName = "Input";
+
+// Textarea Component
+const Textarea = React.forwardRef<
+  HTMLTextAreaElement,
+  React.TextareaHTMLAttributes<HTMLTextAreaElement>
+>(({ className, ...props }, ref) => {
+  return (
+    <textarea
+      className={cn(
+        "flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
+        className
+      )}
+      ref={ref}
+      {...props}
+    />
+  );
+});
+Textarea.displayName = "Textarea";
+
+// Badge Component
+const Badge = ({
+  className,
+  variant = "default",
+  ...props
+}: React.HTMLAttributes<HTMLDivElement> & {
+  variant?: "default" | "secondary";
+}) => {
+  const variants = {
+    default: "border-transparent bg-primary text-primary-foreground hover:bg-primary/80",
+    secondary: "border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80",
+  };
+
+  return (
+    <div
+      className={cn(
+        "inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
+        variants[variant],
+        className
+      )}
+      {...props}
+    />
+  );
+};
+
+// Card Components
+const Card = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={cn(
+      "rounded-lg border bg-card text-card-foreground shadow-sm",
+      className
+    )}
+    {...props}
+  />
+));
+Card.displayName = "Card";
+
+const CardHeader = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={cn("flex flex-col space-y-1.5 p-6", className)}
+    {...props}
+  />
+));
+CardHeader.displayName = "CardHeader";
+
+const CardTitle = React.forwardRef<
+  HTMLParagraphElement,
+  React.HTMLAttributes<HTMLHeadingElement>
+>(({ className, ...props }, ref) => (
+  <h3
+    ref={ref}
+    className={cn(
+      "text-2xl font-semibold leading-none tracking-tight",
+      className
+    )}
+    {...props}
+  />
+));
+CardTitle.displayName = "CardTitle";
+
+const CardDescription = React.forwardRef<
+  HTMLParagraphElement,
+  React.HTMLAttributes<HTMLParagraphElement>
+>(({ className, ...props }, ref) => (
+  <p
+    ref={ref}
+    className={cn("text-sm text-muted-foreground", className)}
+    {...props}
+  />
+));
+CardDescription.displayName = "CardDescription";
+
+const CardContent = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div ref={ref} className={cn("p-6 pt-0", className)} {...props} />
+));
+CardContent.displayName = "CardContent";
+
+// Accordion Component
+const AccordionItem = ({
+  question,
+  answer,
+  isOpen,
+  onClick,
+}: {
+  question: string;
+  answer: string;
+  isOpen: boolean;
+  onClick: () => void;
+}) => {
+  return (
+    <div className="border-b border-border">
+      <button
+        onClick={onClick}
+        className="flex w-full items-center justify-between gap-2 px-4 py-4 text-left transition-colors hover:bg-muted/50"
+        aria-expanded={isOpen}
+      >
+        <h3 className="font-medium">{question}</h3>
+        <motion.div
+          animate={{ rotate: isOpen ? 180 : 0 }}
+          transition={{ duration: 0.2 }}
+          className="flex-shrink-0"
+        >
+          <ChevronDown className="h-5 w-5" />
+        </motion.div>
+      </button>
+
+      <AnimatePresence initial={false}>
+        {isOpen && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{
+              height: "auto",
+              opacity: 1,
+              transition: {
+                height: {
+                  type: "spring",
+                  stiffness: 500,
+                  damping: 40,
+                  duration: 0.3,
+                },
+                opacity: { duration: 0.25 },
+              },
+            }}
+            exit={{
+              height: 0,
+              opacity: 0,
+              transition: {
+                height: { duration: 0.25 },
+                opacity: { duration: 0.15 },
+              },
+            }}
+            className="overflow-hidden"
+          >
+            <div className="px-4 pb-4 pt-2 text-muted-foreground">{answer}</div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+};
+
+// Main Dentistry Website Component
+const DentistryWebsite = () => {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [appointmentModalOpen, setAppointmentModalOpen] = useState(false);
+  const [expandedFaq, setExpandedFaq] = useState<number | null>(0);
+  const [billingCycle, setBillingCycle] = useState<"monthly" | "annually">("monthly");
+  const dentistPhone = "+40722123456";
+  const displayPhone = "0722 123 456";
+  const whatsappPhone = "40722123456";
+  const whatsappMessage =
+    "Buna ziua! As dori sa programez o consultatie stomatologica. Ma puteti ajuta cu un interval disponibil?";
+
+  const openAppointmentModal = () => {
+    setAppointmentModalOpen(true);
+    setMobileMenuOpen(false);
+  };
+
+  const callDentist = () => {
+    window.location.href = `tel:${dentistPhone}`;
+    setAppointmentModalOpen(false);
+  };
+
+  const openWhatsApp = () => {
+    window.open(
+      `https://wa.me/${whatsappPhone}?text=${encodeURIComponent(whatsappMessage)}`,
+      "_blank",
+      "noopener,noreferrer"
+    );
+    setAppointmentModalOpen(false);
+  };
+
+  const testimonials = [
+    {
+      text: "Echipa clinicii este extraordinara. M-am simtit in siguranta pe tot parcursul vizitei, iar rezultatele au depasit asteptarile mele.",
+      name: "Sarah Ionescu",
+      role: "Pacient",
+      rating: 5,
+    },
+    {
+      text: "Profesionalism, grija si eficienta. Vin aici de ani buni si nu mi-as incredinta sanatatea dentara altcuiva.",
+      name: "Mihai Popescu",
+      role: "Pacient",
+      rating: 5,
+    },
+    {
+      text: "De la detartraje de rutina pana la proceduri complexe, totul este facut cu atentie si empatie. Recomand cu incredere!",
+      name: "Elena Radu",
+      role: "Pacient",
+      rating: 5,
+    },
+    {
+      text: "Aparatura moderna si abordarea blanda fac vizitele la dentist mult mai relaxante. Acum vine aici toata familia mea.",
+      name: "David Marinescu",
+      role: "Pacient",
+      rating: 5,
+    },
+  ];
+
+  const faqs = [
+    {
+      question: "Cat de des ar trebui sa merg la dentist?",
+      answer:
+        "Recomandam un control stomatologic o data la 6 luni, impreuna cu igienizarea profesionala. In functie de nevoile fiecarui pacient, vizitele pot fi mai frecvente.",
+    },
+    {
+      question: "Acceptati asigurari dentare?",
+      answer:
+        "Da, acceptam mai multe tipuri de asigurari dentare. Echipa noastra va poate ajuta sa intelegeti acoperirea si optiunile de plata disponibile.",
+    },
+    {
+      question: "Ce fac in cazul unei urgente dentare?",
+      answer:
+        "Contactati-ne imediat daca aveti durere puternica, traumatism sau sangerare. Oferim programari rapide pentru urgente si va ghidam cu pasii de ingrijire initiala.",
+    },
+    {
+      question: "Tratamentele sunt dureroase?",
+      answer:
+        "Confortul pacientului este prioritar. Folosim tehnici moderne si anestezie pentru a reduce disconfortul, iar tratamentul incepe doar cand sunteti pregatit.",
+    },
+    {
+      question: "Cat dureaza o programare obisnuita?",
+      answer:
+        "O igienizare de rutina dureaza de obicei 45-60 de minute. Procedurile complexe variaza ca durata, iar timpul estimat este comunicat la programare.",
+    },
+  ];
+
+  const pricingPlans = [
+    {
+      name: "Ingrijire de baza",
+      price: billingCycle === "monthly" ? 49 : 470,
+      description: "Ingrijire dentara esentiala pentru pacienti individuali",
+      features: [
+        "2 igienizari pe an",
+        "Radiografie anuala",
+        "Consultatii stomatologice",
+        "10% reducere la tratamente",
+        "Acces la urgente",
+      ],
+      icon: Shield,
+      badge: "Popular",
+    },
+    {
+      name: "Plan familie",
+      price: billingCycle === "monthly" ? 129 : 1240,
+      description: "Ingrijire completa pentru intreaga familie",
+      features: [
+        "Pana la 4 membri ai familiei",
+        "Igienizari nelimitate",
+        "Radiografii incluse",
+        "20% reducere la tratamente",
+        "Programari prioritare",
+        "Consult ortodontic",
+      ],
+      icon: Users,
+      badge: "Cel mai bun",
+      highlighted: true,
+    },
+    {
+      name: "Premium",
+      price: billingCycle === "monthly" ? 199 : 1910,
+      description: "Pachet complet pentru sanatate dentara",
+      features: [
+        "Vizite nelimitate",
+        "Preventie completa",
+        "Consultatii estetice",
+        "30% reducere la tratamente",
+        "Linie de urgenta 24/7",
+        "Albire dentara inclusa",
+        "Coordonator dedicat",
+      ],
+      icon: Award,
+      badge: "Premium",
+    },
+  ];
+
+  return (
+    <div className="min-h-screen bg-background text-foreground">
+      {/* Navigation */}
+      <nav className="sticky top-0 z-50 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <div className="container mx-auto px-4">
+          <div className="flex h-16 items-center justify-between">
+            <div className="flex items-center gap-2">
+              <Smile className="h-8 w-8 text-primary" />
+              <span className="text-xl font-bold">CMArt Dent</span>
+            </div>
+
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex items-center gap-6">
+              <a href="#services" className="text-sm font-medium hover:text-primary transition-colors">
+                Servicii
+              </a>
+              <a href="#about" className="text-sm font-medium hover:text-primary transition-colors">
+                Despre
+              </a>
+              <a href="#pricing" className="text-sm font-medium hover:text-primary transition-colors">
+                Planuri
+              </a>
+              <a href="#testimonials" className="text-sm font-medium hover:text-primary transition-colors">
+                Pareri
+              </a>
+              <a href="#faq" className="text-sm font-medium hover:text-primary transition-colors">
+                Intrebari
+              </a>
+              <Button size="sm" onClick={openAppointmentModal}>Fa o programare</Button>
+            </div>
+
+            {/* Mobile Menu Button */}
+            <button
+              className="md:hidden"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            >
+              {mobileMenuOpen ? <XIcon className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </button>
+          </div>
+
+          {/* Mobile Menu */}
+          {mobileMenuOpen && (
+            <div className="md:hidden py-4 space-y-4">
+              <a href="#services" className="block text-sm font-medium hover:text-primary transition-colors">
+                Servicii
+              </a>
+              <a href="#about" className="block text-sm font-medium hover:text-primary transition-colors">
+                Despre
+              </a>
+              <a href="#pricing" className="block text-sm font-medium hover:text-primary transition-colors">
+                Planuri
+              </a>
+              <a href="#testimonials" className="block text-sm font-medium hover:text-primary transition-colors">
+                Pareri
+              </a>
+              <a href="#faq" className="block text-sm font-medium hover:text-primary transition-colors">
+                Intrebari
+              </a>
+              <Button size="sm" className="w-full" onClick={openAppointmentModal}>Fa o programare</Button>
+            </div>
+          )}
+        </div>
+      </nav>
+
+      {/* Hero Section */}
+      <section className="relative overflow-hidden py-20 lg:py-32">
+        <div className="container mx-auto px-4">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6">
+                Zambetul tau merita{" "}
+                <span className="text-primary">cea mai buna ingrijire</span>
+              </h1>
+              <p className="text-lg text-muted-foreground mb-8">
+                Servicii stomatologice profesionale pentru pacienti si familii.
+                Bucura-te de tratamente blande, complete si orientate spre confortul tau.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Button size="lg" className="gap-2" onClick={openAppointmentModal}>
+                  Programeaza-te <ArrowRight className="h-4 w-4" />
+                </Button>
+                <Button size="lg" variant="outline">
+                  Afla mai multe
+                </Button>
+              </div>
+              <div className="mt-8 flex items-center gap-8">
+                <div>
+                  <div className="text-3xl font-bold text-primary">15+</div>
+                  <div className="text-sm text-muted-foreground">Ani experienta</div>
+                </div>
+                <div>
+                  <div className="text-3xl font-bold text-primary">5000+</div>
+                  <div className="text-sm text-muted-foreground">Pacienti multumiti</div>
+                </div>
+                <div>
+                  <div className="text-3xl font-bold text-primary">98%</div>
+                  <div className="text-sm text-muted-foreground">Rata satisfactie</div>
+                </div>
+              </div>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="relative"
+            >
+              <div className="aspect-[4/5] overflow-hidden rounded-2xl border bg-muted shadow-lg">
+                <img
+                  src="/dr-andreea.png"
+                  alt="Dr. Andreea de la CMArt Dent"
+                  className="h-full w-full object-cover"
+                />
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Proof Section */}
+      <section className="py-16 bg-muted/50">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div className="text-center">
+              <Award className="h-12 w-12 text-primary mx-auto mb-4" />
+              <div className="text-2xl font-bold">Premiata</div>
+              <div className="text-sm text-muted-foreground">Excelenta in ingrijire</div>
+            </div>
+            <div className="text-center">
+              <Shield className="h-12 w-12 text-primary mx-auto mb-4" />
+              <div className="text-2xl font-bold">Certificata</div>
+              <div className="text-sm text-muted-foreground">Specialisti autorizati</div>
+            </div>
+            <div className="text-center">
+              <Clock className="h-12 w-12 text-primary mx-auto mb-4" />
+              <div className="text-2xl font-bold">Suport 24/7</div>
+              <div className="text-sm text-muted-foreground">Ingrijire de urgenta</div>
+            </div>
+            <div className="text-center">
+              <Heart className="h-12 w-12 text-primary mx-auto mb-4" />
+              <div className="text-2xl font-bold">Pacientul primul</div>
+              <div className="text-sm text-muted-foreground">Grija si empatie</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section id="services" className="py-20 lg:py-32">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Servicii stomatologice complete
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              De la controale de rutina la tratamente avansate, oferim tot ce ai nevoie pentru sanatatea orala.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[
+              {
+                icon: Award,
+                title: "Implanturi",
+                description: "Solutii moderne pentru inlocuirea dintilor lipsa si refacerea confortului la masticatie.",
+              },
+              {
+                icon: Shield,
+                title: "Chirurgie",
+                description: "Interventii chirurgicale orale realizate cu atentie, planificare si control al disconfortului.",
+              },
+              {
+                icon: Smile,
+                title: "Albire Dentară",
+                description: "Tratamente de albire pentru un zambet mai luminos, cu evaluare si recomandari personalizate.",
+              },
+              {
+                icon: Heart,
+                title: "Endodonție",
+                description: "Tratamentul canalelor radiculare pentru salvarea dintilor afectati si eliminarea durerii.",
+              },
+              {
+                icon: Clock,
+                title: "Parodontologie",
+                description: "Diagnostic si tratament pentru afectiunile gingivale si sanatatea tesuturilor de sustinere.",
+              },
+              {
+                icon: Users,
+                title: "Protetica Dentara",
+                description: "Coroane, punti si lucrari protetice pentru functie, estetica si stabilitate pe termen lung.",
+              },
+              {
+                icon: Smile,
+                title: "Pedodonție",
+                description: "Ingrijire stomatologica pentru copii, intr-un ritm bland si adaptat varstei lor.",
+              },
+              {
+                icon: Shield,
+                title: "Odontoterapie",
+                description: "Tratamente pentru carii si restaurari dentare menite sa pastreze structura naturala a dintelui.",
+              },
+            ].map((feature, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                viewport={{ once: true }}
+              >
+                <Card className="h-full hover:shadow-lg transition-shadow">
+                  <CardHeader>
+                    <feature.icon className="h-12 w-12 text-primary mb-4" />
+                    <CardTitle className="text-xl">{feature.title}</CardTitle>
+                    <CardDescription>{feature.description}</CardDescription>
+                  </CardHeader>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Pricing Section */}
+      <section id="pricing" className="py-20 lg:py-32 bg-muted/50">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Planuri accesibile pentru ingrijire dentara
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
+              Alege planul potrivit nevoilor tale. Fiecare optiune include ingrijire atenta din partea echipei noastre.
+            </p>
+
+            {/* Billing Toggle */}
+            <div className="flex items-center justify-center gap-3 mb-8">
+              <span className={`text-sm font-medium ${billingCycle === "monthly" ? "text-primary" : "text-muted-foreground"}`}>
+                Lunar
+              </span>
+              <button
+                onClick={() => setBillingCycle(billingCycle === "monthly" ? "annually" : "monthly")}
+                className="relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background bg-input"
+                role="switch"
+                aria-checked={billingCycle === "annually"}
+              >
+                <span
+                  className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-background shadow-lg ring-0 transition duration-200 ease-in-out ${
+                    billingCycle === "annually" ? "translate-x-5" : "translate-x-0"
+                  }`}
+                />
+              </button>
+              <span className={`text-sm font-medium ${billingCycle === "annually" ? "text-primary" : "text-muted-foreground"}`}>
+                Anual <span className="text-xs">(economisesti 20%)</span>
+              </span>
+            </div>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            {pricingPlans.map((plan, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                viewport={{ once: true }}
+              >
+                <div
+                  className={cn(
+                    "relative h-full overflow-hidden rounded-lg border p-6 bg-background supports-[backdrop-filter]:bg-background/40 backdrop-blur-xs",
+                    plan.highlighted && "border-primary ring-2 ring-primary"
+                  )}
+                >
+                  <div className="flex items-center gap-2 mb-4">
+                    <div className="flex items-center justify-center rounded-full border p-1.5">
+                      <plan.icon className="h-4 w-4" />
+                    </div>
+                    <h3 className="text-muted-foreground font-mono text-sm">{plan.name}</h3>
+                    <Badge variant="secondary" className="ml-auto">
+                      {plan.badge}
+                    </Badge>
+                  </div>
+
+                  <div className="mb-4">
+                    <span className="text-4xl font-bold">${plan.price}</span>
+                    <span className="text-muted-foreground text-sm">
+                      /{billingCycle === "monthly" ? "luna" : "an"}
+                    </span>
+                  </div>
+
+                  <p className="text-sm text-muted-foreground mb-6">{plan.description}</p>
+
+                  <ul className="space-y-3 mb-6">
+                    {plan.features.map((feature, idx) => (
+                      <li key={idx} className="flex items-start gap-2">
+                        <Check className="h-5 w-5 text-primary shrink-0 mt-0.5" />
+                        <span className="text-sm">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <Button
+                    className="w-full"
+                    variant={plan.highlighted ? "default" : "outline"}
+                    onClick={openAppointmentModal}
+                  >
+                    Alege planul
+                  </Button>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section id="testimonials" className="py-20 lg:py-32">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Ce spun pacientii nostri
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Experientele pacientilor vorbesc cel mai bine despre grija si atentia noastra.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            {testimonials.map((testimonial, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                viewport={{ once: true }}
+              >
+                <Card className="h-full">
+                  <CardHeader>
+                    <div className="flex gap-1 mb-4">
+                      {[...Array(testimonial.rating)].map((_, i) => (
+                        <Star key={i} className="h-5 w-5 fill-primary text-primary" />
+                      ))}
+                    </div>
+                    <CardDescription className="text-base">
+                      "{testimonial.text}"
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="flex items-center gap-3">
+                      <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center">
+                        <Users className="h-6 w-6 text-primary" />
+                      </div>
+                      <div>
+                        <div className="font-semibold">{testimonial.name}</div>
+                        <div className="text-sm text-muted-foreground">{testimonial.role}</div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section id="faq" className="py-20 lg:py-32 bg-muted/50">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Intrebari frecvente
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Ai intrebari? Gasesti mai jos raspunsurile principale sau ne poti contacta direct.
+            </p>
+          </div>
+
+          <div className="max-w-3xl mx-auto">
+            <div className="divide-y divide-border rounded-lg border bg-background">
+              {faqs.map((faq, index) => (
+                <AccordionItem
+                  key={index}
+                  question={faq.question}
+                  answer={faq.answer}
+                  isOpen={expandedFaq === index}
+                  onClick={() => setExpandedFaq(expandedFaq === index ? null : index)}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section id="contact" className="py-20 lg:py-32">
+        <div className="container mx-auto px-4">
+          <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+            <div>
+              <h2 className="text-3xl md:text-4xl font-bold mb-6">
+                Contact
+              </h2>
+              <p className="text-lg text-muted-foreground mb-8">
+                Esti gata pentru o programare? Contacteaza-ne si fa primul pas catre un zambet mai sanatos.
+              </p>
+
+              <div className="space-y-6">
+                <div className="flex items-start gap-4">
+                  <div className="rounded-full bg-primary/10 p-3">
+                    <Phone className="h-6 w-6 text-primary" />
+                  </div>
+                  <div>
+                    <div className="font-semibold mb-1">Telefon</div>
+                    <div className="text-muted-foreground">{displayPhone}</div>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4">
+                  <div className="rounded-full bg-primary/10 p-3">
+                    <Mail className="h-6 w-6 text-primary" />
+                  </div>
+                  <div>
+                    <div className="font-semibold mb-1">Email</div>
+                    <div className="text-muted-foreground">contact@cmartdent.ro</div>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4">
+                  <div className="rounded-full bg-primary/10 p-3">
+                    <MapPin className="h-6 w-6 text-primary" />
+                  </div>
+                  <div>
+                    <div className="font-semibold mb-1">Adresa</div>
+                    <div className="text-muted-foreground">
+                      Targu Jiu<br />
+                      Judetul Gorj<br />
+                      Romania
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4">
+                  <div className="rounded-full bg-primary/10 p-3">
+                    <Clock className="h-6 w-6 text-primary" />
+                  </div>
+                  <div>
+                    <div className="font-semibold mb-1">Program</div>
+                    <div className="text-muted-foreground">
+                      Luni-Vineri: 08:00 - 18:00<br />
+                      Sambata: 09:00 - 14:00<br />
+                      Duminica: inchis
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>Locatia noastra</CardTitle>
+                <CardDescription>
+                  Gaseste-ne rapid pe harta in Tg. Jiu.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="overflow-hidden rounded-lg border">
+                  <iframe
+                    title="Harta CMArt Dent Tg. Jiu"
+                    src="https://www.google.com/maps?q=Targu%20Jiu%2C%20Romania&output=embed"
+                    className="h-[360px] w-full"
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                  />
+                </div>
+                <Button type="button" className="w-full gap-2" onClick={openAppointmentModal}>
+                  Programeaza-te <Calendar className="h-4 w-4" />
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="border-t bg-muted/50 py-12">
+        <div className="container mx-auto px-4">
+          <div className="grid md:grid-cols-4 gap-8 mb-8">
+            <div>
+              <div className="flex items-center gap-2 mb-4">
+                <Smile className="h-6 w-6 text-primary" />
+                <span className="font-bold">CMArt Dent</span>
+              </div>
+              <p className="text-sm text-muted-foreground">
+                Ingrijire stomatologica pentru intreaga familie. Zambetul tau este prioritatea noastra.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="font-semibold mb-4">Linkuri rapide</h3>
+              <ul className="space-y-2 text-sm">
+                <li><a href="#services" className="text-muted-foreground hover:text-primary transition-colors">Servicii</a></li>
+                <li><a href="#about" className="text-muted-foreground hover:text-primary transition-colors">Despre noi</a></li>
+                <li><a href="#pricing" className="text-muted-foreground hover:text-primary transition-colors">Planuri</a></li>
+                <li><a href="#contact" className="text-muted-foreground hover:text-primary transition-colors">Contact</a></li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="font-semibold mb-4">Servicii</h3>
+              <ul className="space-y-2 text-sm">
+                <li className="text-muted-foreground">Implanturi</li>
+                <li className="text-muted-foreground">Chirurgie</li>
+                <li className="text-muted-foreground">Albire Dentară</li>
+                <li className="text-muted-foreground">Endodonție</li>
+                <li className="text-muted-foreground">Parodontologie</li>
+                <li className="text-muted-foreground">Protetica Dentara</li>
+                <li className="text-muted-foreground">Pedodonție</li>
+                <li className="text-muted-foreground">Odontoterapie</li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="font-semibold mb-4">Urmareste-ne</h3>
+              <div className="flex gap-4">
+                <a href="#" className="rounded-full bg-primary/10 p-2 hover:bg-primary/20 transition-colors">
+                  <Facebook className="h-5 w-5 text-primary" />
+                </a>
+                <a href="#" className="rounded-full bg-primary/10 p-2 hover:bg-primary/20 transition-colors">
+                  <Twitter className="h-5 w-5 text-primary" />
+                </a>
+                <a href="#" className="rounded-full bg-primary/10 p-2 hover:bg-primary/20 transition-colors">
+                  <Instagram className="h-5 w-5 text-primary" />
+                </a>
+                <a href="#" className="rounded-full bg-primary/10 p-2 hover:bg-primary/20 transition-colors">
+                  <Linkedin className="h-5 w-5 text-primary" />
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div className="border-t pt-8 text-center text-sm text-muted-foreground">
+            <p>&copy; 2024 CMArt Dent. Toate drepturile rezervate.</p>
+          </div>
+        </div>
+      </footer>
+
+      <AnimatePresence>
+        {appointmentModalOpen && (
+          <motion.div
+            className="fixed inset-0 z-[60] flex items-center justify-center bg-foreground/60 px-4 py-6"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="appointment-modal-title"
+          >
+            <motion.div
+              className="w-full max-w-md rounded-lg border bg-background p-6 text-foreground shadow-lg"
+              initial={{ opacity: 0, y: 16, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 16, scale: 0.98 }}
+              transition={{ duration: 0.2 }}
+            >
+              <div className="mb-4 flex items-start justify-between gap-4">
+                <div>
+                  <h2 id="appointment-modal-title" className="text-2xl font-bold">
+                    Alege metoda de contact
+                  </h2>
+                  <p className="mt-2 text-sm text-muted-foreground">
+                    Programeaza o consultatie prin apel telefonic sau trimite rapid un mesaj pe WhatsApp.
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setAppointmentModalOpen(false)}
+                  className="rounded-md p-2 transition-colors hover:bg-muted"
+                  aria-label="Inchide fereastra"
+                >
+                  <XIcon className="h-5 w-5" />
+                </button>
+              </div>
+
+              <div className="space-y-3">
+                <Button type="button" className="w-full gap-2" onClick={callDentist}>
+                  <Phone className="h-4 w-4" />
+                  Suna la {displayPhone}
+                </Button>
+                <Button type="button" variant="outline" className="w-full gap-2" onClick={openWhatsApp}>
+                  <MessageCircle className="h-4 w-4" />
+                  Deschide WhatsApp
+                </Button>
+              </div>
+
+              <p className="mt-4 rounded-md bg-muted p-3 text-sm text-muted-foreground">
+                Mesaj pregatit: "{whatsappMessage}"
+              </p>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+};
+
+export default DentistryWebsite;
