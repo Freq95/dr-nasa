@@ -338,9 +338,9 @@ const DentistryWebsite = () => {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden py-20 lg:py-32">
+      <section className="relative overflow-hidden py-16 lg:py-28">
         <div className="container mx-auto px-4">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="grid lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] gap-10 xl:gap-20 items-center">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -383,7 +383,7 @@ const DentistryWebsite = () => {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="relative"
             >
-              <div className="aspect-[4/5] overflow-hidden rounded-2xl border bg-muted shadow-lg">
+              <div className="mx-auto aspect-[4/5] w-full max-w-[560px] overflow-hidden rounded-2xl border bg-muted shadow-lg lg:mx-0 lg:ml-auto">
                 <img
                   src={`${import.meta.env.BASE_URL}dr-andreea.png`}
                   alt="Dr. Andreea de la CMArt Dent"
@@ -579,7 +579,7 @@ const DentistryWebsite = () => {
       {/* Contact Section */}
       <section id="contact" className="py-20 lg:py-32">
         <div className="container mx-auto px-4">
-          <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+          <div className="grid lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] gap-10 xl:gap-16 mx-auto">
             <div>
               <h2 className="text-3xl md:text-4xl font-bold mb-6">
                 Contact
