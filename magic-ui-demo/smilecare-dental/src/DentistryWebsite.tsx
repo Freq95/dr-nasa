@@ -20,6 +20,9 @@ import {
   Activity,
   Baby,
   BriefcaseMedical,
+  Facebook,
+  Instagram,
+  Music2,
   ArrowRight,
   Menu,
   Scissors,
@@ -741,8 +744,42 @@ const DentistryWebsite = () => {
             </div>
           </div>
 
-          <div className="border-t pt-8 text-center text-sm text-muted-foreground">
+          <div className="border-t pt-8">
+            <div className="mb-6 flex flex-col items-center justify-between gap-4 md:flex-row">
+              <h3 className="font-semibold">Urmareste-ne</h3>
+              <div className="flex flex-wrap justify-center gap-3">
+                <a
+                  href="https://www.facebook.com/dr.andreea.nicolescu.ciobanoiu?mibextid=wwXIfr&rdid=cpsk7Gre4OqJakeV&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1BPPVmHGpc%2F%3Fmibextid%3DwwXIfr#"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-md border px-3 py-2 text-sm transition-colors hover:bg-accent hover:text-accent-foreground"
+                >
+                  <Facebook className="h-4 w-4" />
+                  Facebook
+                </a>
+                <a
+                  href="https://www.instagram.com/dr.andreea_nicolescu_ciobanoiu"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-md border px-3 py-2 text-sm transition-colors hover:bg-accent hover:text-accent-foreground"
+                >
+                  <Instagram className="h-4 w-4" />
+                  Instagram
+                </a>
+                <a
+                  href="https://www.tiktok.com/@cmart917?_r=1&_t=ZN-97IOHjczBJv"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-md border px-3 py-2 text-sm transition-colors hover:bg-accent hover:text-accent-foreground"
+                >
+                  <Music2 className="h-4 w-4" />
+                  TikTok
+                </a>
+              </div>
+            </div>
+            <div className="text-center text-sm text-muted-foreground">
             <p>&copy; 2024 CMArt Dent. Toate drepturile rezervate.</p>
+            </div>
           </div>
         </div>
       </footer>
