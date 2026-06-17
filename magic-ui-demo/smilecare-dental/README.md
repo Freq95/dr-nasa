@@ -18,7 +18,7 @@ Componenta foloseste token-uri semantice de tip shadcn (`bg-primary`, `text-mute
 ## Continut
 
 - Clinica: CMArt Dent
-- Telefon: 0767 161 774
+- Telefon: +40 767 161 774
 - Locatie: Strada Republicii 6, sc.1, ap.3, 210152 Targu Jiu
 - Imagine doctor: `public/dr-andreea.png`
 - Servicii: Implanturi, Chirurgie, Albire Dentara, Endodontie, Parodontologie, Protetica Dentara, Pedodontie, Odontoterapie

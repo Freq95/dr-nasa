@@ -200,7 +200,7 @@ const DentistryWebsite = () => {
   const [appointmentModalOpen, setAppointmentModalOpen] = useState(false);
   const [expandedFaq, setExpandedFaq] = useState<number | null>(0);
   const dentistPhone = "+40767161774";
-  const displayPhone = "0767 161 774";
+  const displayPhone = "+40 767 161 774";
   const whatsappPhone = "40767161774";
   const whatsappMessage =
     "Buna ziua! As dori sa programez o consultatie stomatologica. Ma puteti ajuta cu un interval disponibil?";
@@ -653,7 +653,7 @@ const DentistryWebsite = () => {
                 <div className="overflow-hidden rounded-lg border">
                   <iframe
                     title="Harta CMArt Dent Tg. Jiu"
-                    src="https://www.google.com/maps?q=Strada%20Republicii%206%2C%20sc.1%2C%20ap.3%2C%20210152%20T%C3%A2rgu%20Jiu&output=embed"
+                    src="https://www.google.com/maps?q=45.0354202%2C23.2757412&z=17&output=embed"
                     className="h-[360px] w-full"
                     loading="lazy"
                     referrerPolicy="no-referrer-when-downgrade"
