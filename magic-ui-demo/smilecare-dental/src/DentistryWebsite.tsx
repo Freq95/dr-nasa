@@ -288,12 +288,12 @@ const DentistryWebsite = () => {
       <nav className="sticky top-0 z-50 border-b border-gold/20 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container mx-auto px-4">
           <div className="flex h-16 items-center justify-between">
-            <div className="flex items-center gap-2">
-              <Smile className="h-8 w-8 text-gold" />
-              <span className="text-xl font-bold">
-                CM<span className="font-script text-3xl font-normal leading-none text-gold">Art</span>{" "}
-                <span className="tracking-[0.18em]">Dent</span>
-              </span>
+            <div className="flex items-center">
+              <img
+                src={`${import.meta.env.BASE_URL}cmart-logo.png`}
+                alt="CMArt Dent"
+                className="h-10 w-auto object-contain sm:h-12"
+              />
             </div>
 
             {/* Desktop Navigation */}
@@ -699,12 +699,12 @@ const DentistryWebsite = () => {
         <div className="container mx-auto px-4">
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-[1.25fr_0.8fr_1fr_0.85fr_0.85fr]">
             <div>
-              <div className="flex items-center gap-2 mb-4">
-                <Smile className="h-6 w-6 text-gold" />
-                <span className="font-bold">
-                  CM<span className="font-script text-2xl font-normal text-gold">Art</span>{" "}
-                  <span className="tracking-[0.14em]">Dent</span>
-                </span>
+              <div className="mb-4">
+                <img
+                  src={`${import.meta.env.BASE_URL}cmart-logo.png`}
+                  alt="CMArt Dent"
+                  className="mb-3 h-16 w-auto object-contain"
+                />
               </div>
               <p className="text-sm text-muted-foreground">
                 Ingrijire stomatologica pentru intreaga familie. Zambetul tau este prioritatea noastra.
