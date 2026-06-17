@@ -653,12 +653,27 @@ const DentistryWebsite = () => {
                 <div className="overflow-hidden rounded-lg border">
                   <iframe
                     title="Harta CMArt Dent Tg. Jiu"
-                    src="https://www.google.com/maps?q=45.0354202%2C23.2757412&z=17&output=embed"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5638.9659441496415!2d23.27316091233962!3d45.03542017094953!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x474d8bf2c8ad2bd9%3A0xd8d48f283505b7cb!2sCMart%20Dent%20Dr.%20Nicolescu%20(Ciobanoiu)%20Andreea!5e0!3m2!1sen!2sus!4v1781728464928!5m2!1sen!2sus"
                     className="h-[360px] w-full"
+                    allowFullScreen
                     loading="lazy"
                     referrerPolicy="no-referrer-when-downgrade"
                   />
                 </div>
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="w-full gap-2"
+                  onClick={() =>
+                    window.open(
+                      "https://maps.app.goo.gl/6yhmrr7wLqSZpoRE7",
+                      "_blank",
+                      "noopener,noreferrer"
+                    )
+                  }
+                >
+                  Deschide in Google Maps <MapPin className="h-4 w-4" />
+                </Button>
                 <Button type="button" className="w-full gap-2" onClick={openAppointmentModal}>
                   Programeaza-te <Calendar className="h-4 w-4" />
                 </Button>
