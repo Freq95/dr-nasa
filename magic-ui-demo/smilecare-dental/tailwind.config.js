@@ -12,6 +12,7 @@ export default {
       fontFamily: {
         sans: ['"Noto Sans"', "system-ui", "sans-serif"],
         heading: ['"Figtree"', "system-ui", "sans-serif"],
+        script: ['"Great Vibes"', "cursive"],
       },
       colors: {
         border: "oklch(var(--border) / var(--border-alpha, <alpha-value>))",
@@ -47,6 +48,9 @@ export default {
           DEFAULT: "oklch(var(--card) / <alpha-value>)",
           foreground: "oklch(var(--card-foreground) / <alpha-value>)",
         },
+        gold: "oklch(var(--gold) / <alpha-value>)",
+        "gold-soft": "oklch(var(--gold-soft) / <alpha-value>)",
+        ivory: "oklch(var(--ivory) / <alpha-value>)",
       },
       borderRadius: {
         lg: "var(--radius)",

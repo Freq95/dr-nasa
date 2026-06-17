@@ -49,9 +49,9 @@ const Button = React.forwardRef<
   const baseStyles =
     "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 cursor-pointer";
   const variants = {
-    default: "bg-primary text-primary-foreground hover:bg-primary/90 shadow-sm",
+    default: "border border-gold/50 bg-primary text-primary-foreground shadow-sm hover:bg-primary/90 hover:border-gold",
     outline:
-      "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
+      "border border-input bg-background hover:border-gold/60 hover:bg-gold-soft/40 hover:text-accent-foreground",
     ghost: "hover:bg-accent hover:text-accent-foreground",
   };
   const sizes = {
@@ -285,12 +285,15 @@ const DentistryWebsite = () => {
   return (
     <div className="min-h-screen bg-background text-foreground">
       {/* Navigation */}
-      <nav className="sticky top-0 z-50 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <nav className="sticky top-0 z-50 border-b border-gold/20 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container mx-auto px-4">
           <div className="flex h-16 items-center justify-between">
             <div className="flex items-center gap-2">
-              <Smile className="h-8 w-8 text-primary" />
-              <span className="text-xl font-bold">CMArt Dent</span>
+              <Smile className="h-8 w-8 text-gold" />
+              <span className="text-xl font-bold">
+                CM<span className="font-script text-3xl font-normal leading-none text-gold">Art</span>{" "}
+                <span className="tracking-[0.18em]">Dent</span>
+              </span>
             </div>
 
             {/* Desktop Navigation */}
@@ -341,7 +344,7 @@ const DentistryWebsite = () => {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden py-16 lg:py-28">
+      <section className="relative overflow-hidden border-b border-gold/10 bg-gradient-to-b from-ivory/50 to-background py-16 lg:py-28">
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] gap-10 xl:gap-20 items-center">
             <motion.div
@@ -351,8 +354,9 @@ const DentistryWebsite = () => {
             >
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6">
                 Zambetul tau merita{" "}
-                <span className="text-primary">cea mai buna ingrijire</span>
+                <span className="text-gold">cea mai buna ingrijire</span>
               </h1>
+              <div className="mb-6 h-px w-32 bg-gold/60" />
               <p className="text-lg text-muted-foreground mb-8">
                 Servicii stomatologice profesionale pentru pacienti si familii.
                 Bucura-te de tratamente blande, complete si orientate spre confortul tau.
@@ -367,15 +371,15 @@ const DentistryWebsite = () => {
               </div>
               <div className="mt-8 flex items-center gap-8">
                 <div>
-                  <div className="text-3xl font-bold text-primary">15+</div>
+                  <div className="text-3xl font-bold text-gold">15+</div>
                   <div className="text-sm text-muted-foreground">Ani experienta</div>
                 </div>
                 <div>
-                  <div className="text-3xl font-bold text-primary">5000+</div>
+                  <div className="text-3xl font-bold text-gold">5000+</div>
                   <div className="text-sm text-muted-foreground">Pacienti multumiti</div>
                 </div>
                 <div>
-                  <div className="text-3xl font-bold text-primary">98%</div>
+                  <div className="text-3xl font-bold text-gold">98%</div>
                   <div className="text-sm text-muted-foreground">Rata satisfactie</div>
                 </div>
               </div>
@@ -386,7 +390,7 @@ const DentistryWebsite = () => {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="relative"
             >
-              <div className="mx-auto aspect-[4/5] w-full max-w-[560px] overflow-hidden rounded-2xl border bg-muted shadow-lg lg:mx-0 lg:ml-auto">
+              <div className="mx-auto aspect-[4/5] w-full max-w-[560px] overflow-hidden rounded-2xl border border-gold/30 bg-muted shadow-lg ring-1 ring-gold/20 lg:mx-0 lg:ml-auto">
                 <img
                   src={`${import.meta.env.BASE_URL}dr-andreea.png`}
                   alt="Dr. Andreea de la CMArt Dent"
@@ -399,26 +403,26 @@ const DentistryWebsite = () => {
       </section>
 
       {/* Proof Section */}
-      <section className="py-16 bg-muted/50">
+      <section className="border-b border-gold/10 bg-ivory/40 py-16">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             <div className="text-center">
-              <Award className="h-12 w-12 text-primary mx-auto mb-4" />
+              <Award className="h-12 w-12 text-gold mx-auto mb-4" />
               <div className="text-2xl font-bold">Premiata</div>
               <div className="text-sm text-muted-foreground">Excelenta in ingrijire</div>
             </div>
             <div className="text-center">
-              <Shield className="h-12 w-12 text-primary mx-auto mb-4" />
+              <Shield className="h-12 w-12 text-gold mx-auto mb-4" />
               <div className="text-2xl font-bold">Certificata</div>
               <div className="text-sm text-muted-foreground">Specialisti autorizati</div>
             </div>
             <div className="text-center">
-              <Clock className="h-12 w-12 text-primary mx-auto mb-4" />
+              <Clock className="h-12 w-12 text-gold mx-auto mb-4" />
               <div className="text-2xl font-bold">Suport 24/7</div>
               <div className="text-sm text-muted-foreground">Ingrijire de urgenta</div>
             </div>
             <div className="text-center">
-              <Heart className="h-12 w-12 text-primary mx-auto mb-4" />
+              <Heart className="h-12 w-12 text-gold mx-auto mb-4" />
               <div className="text-2xl font-bold">Pacientul primul</div>
               <div className="text-sm text-muted-foreground">Grija si empatie</div>
             </div>
@@ -433,6 +437,7 @@ const DentistryWebsite = () => {
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
               Servicii stomatologice complete
             </h2>
+            <div className="mx-auto mb-6 h-px w-24 bg-gold/60" />
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               De la controale de rutina la tratamente avansate, oferim tot ce ai nevoie pentru sanatatea orala.
             </p>
@@ -488,9 +493,9 @@ const DentistryWebsite = () => {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
               >
-                <Card className="h-full hover:shadow-lg transition-shadow">
+                <Card className="h-full border-gold/20 hover:border-gold/50 hover:shadow-lg transition-all">
                   <CardHeader>
-                    <feature.icon className="h-12 w-12 text-primary mb-4" />
+                    <feature.icon className="h-12 w-12 text-gold mb-4" />
                     <CardTitle className="text-xl">{feature.title}</CardTitle>
                     <CardDescription>{feature.description}</CardDescription>
                   </CardHeader>
@@ -502,12 +507,13 @@ const DentistryWebsite = () => {
       </section>
 
       {/* Testimonials Section */}
-      <section id="testimonials" className="py-20 lg:py-32">
+      <section id="testimonials" className="bg-ivory/30 py-20 lg:py-32">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
               Ce spun pacientii nostri
             </h2>
+            <div className="mx-auto mb-6 h-px w-24 bg-gold/60" />
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               Experientele pacientilor vorbesc cel mai bine despre grija si atentia noastra.
             </p>
@@ -522,11 +528,11 @@ const DentistryWebsite = () => {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
               >
-                <Card className="h-full">
+                <Card className="h-full border-gold/20">
                   <CardHeader>
                     <div className="flex gap-1 mb-4">
                       {[...Array(testimonial.rating)].map((_, i) => (
-                        <Star key={i} className="h-5 w-5 fill-primary text-primary" />
+                        <Star key={i} className="h-5 w-5 fill-gold text-gold" />
                       ))}
                     </div>
                     <CardDescription className="text-base">
@@ -535,8 +541,8 @@ const DentistryWebsite = () => {
                   </CardHeader>
                   <CardContent>
                     <div className="flex items-center gap-3">
-                      <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center">
-                        <Users className="h-6 w-6 text-primary" />
+                      <div className="h-12 w-12 rounded-full bg-gold/10 flex items-center justify-center">
+                        <Users className="h-6 w-6 text-gold" />
                       </div>
                       <div>
                         <div className="font-semibold">{testimonial.name}</div>
@@ -558,13 +564,14 @@ const DentistryWebsite = () => {
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
               Intrebari frecvente
             </h2>
+            <div className="mx-auto mb-6 h-px w-24 bg-gold/60" />
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               Ai intrebari? Gasesti mai jos raspunsurile principale sau ne poti contacta direct.
             </p>
           </div>
 
           <div className="max-w-3xl mx-auto">
-            <div className="divide-y divide-border rounded-lg border bg-background">
+            <div className="divide-y divide-border rounded-lg border border-gold/20 bg-background">
               {faqs.map((faq, index) => (
                 <AccordionItem
                   key={index}
@@ -587,14 +594,15 @@ const DentistryWebsite = () => {
               <h2 className="text-3xl md:text-4xl font-bold mb-6">
                 Contact
               </h2>
+              <div className="mb-6 h-px w-24 bg-gold/60" />
               <p className="text-lg text-muted-foreground mb-8">
                 Esti gata pentru o programare? Contacteaza-ne si fa primul pas catre un zambet mai sanatos.
               </p>
 
               <div className="space-y-6">
                 <div className="flex items-start gap-4">
-                  <div className="rounded-full bg-primary/10 p-3">
-                    <Phone className="h-6 w-6 text-primary" />
+                  <div className="rounded-full bg-gold/10 p-3">
+                    <Phone className="h-6 w-6 text-gold" />
                   </div>
                   <div>
                     <div className="font-semibold mb-1">Telefon</div>
@@ -603,18 +611,18 @@ const DentistryWebsite = () => {
                 </div>
 
                 <div className="flex items-start gap-4">
-                  <div className="rounded-full bg-primary/10 p-3">
-                    <Mail className="h-6 w-6 text-primary" />
+                  <div className="rounded-full bg-gold/10 p-3">
+                    <Mail className="h-6 w-6 text-gold" />
                   </div>
                   <div>
                     <div className="font-semibold mb-1">Email</div>
-                    <div className="text-muted-foreground">contact@cmartdent.ro</div>
+                    <div className="text-muted-foreground">drandreeanicolescu@gmail.com</div>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-4">
-                  <div className="rounded-full bg-primary/10 p-3">
-                    <MapPin className="h-6 w-6 text-primary" />
+                  <div className="rounded-full bg-gold/10 p-3">
+                    <MapPin className="h-6 w-6 text-gold" />
                   </div>
                   <div>
                     <div className="font-semibold mb-1">Adresa</div>
@@ -626,8 +634,8 @@ const DentistryWebsite = () => {
                 </div>
 
                 <div className="flex items-start gap-4">
-                  <div className="rounded-full bg-primary/10 p-3">
-                    <Clock className="h-6 w-6 text-primary" />
+                  <div className="rounded-full bg-gold/10 p-3">
+                    <Clock className="h-6 w-6 text-gold" />
                   </div>
                   <div>
                     <div className="font-semibold mb-1">Program</div>
@@ -645,7 +653,7 @@ const DentistryWebsite = () => {
               </div>
             </div>
 
-            <Card>
+            <Card className="border-gold/20">
               <CardHeader>
                 <CardTitle>Locatia noastra</CardTitle>
                 <CardDescription>
@@ -653,7 +661,7 @@ const DentistryWebsite = () => {
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div className="overflow-hidden rounded-lg border">
+                <div className="overflow-hidden rounded-lg border border-gold/20">
                   <iframe
                     title="Harta CMArt Dent Tg. Jiu"
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5638.9659441496415!2d23.27316091233962!3d45.03542017094953!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x474d8bf2c8ad2bd9%3A0xd8d48f283505b7cb!2sCMart%20Dent%20Dr.%20Nicolescu%20(Ciobanoiu)%20Andreea!5e0!3m2!1sen!2sus!4v1781728464928!5m2!1sen!2sus"
@@ -687,13 +695,16 @@ const DentistryWebsite = () => {
       </section>
 
       {/* Footer */}
-      <footer className="border-t bg-muted/50 py-12">
+      <footer className="border-t border-gold/20 bg-ivory/40 py-12">
         <div className="container mx-auto px-4">
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-[1.25fr_0.8fr_1fr_0.85fr_0.85fr]">
             <div>
               <div className="flex items-center gap-2 mb-4">
-                <Smile className="h-6 w-6 text-primary" />
-                <span className="font-bold">CMArt Dent</span>
+                <Smile className="h-6 w-6 text-gold" />
+                <span className="font-bold">
+                  CM<span className="font-script text-2xl font-normal text-gold">Art</span>{" "}
+                  <span className="tracking-[0.14em]">Dent</span>
+                </span>
               </div>
               <p className="text-sm text-muted-foreground">
                 Ingrijire stomatologica pentru intreaga familie. Zambetul tau este prioritatea noastra.
@@ -751,33 +762,33 @@ const DentistryWebsite = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Facebook CMArt Dent"
-                  className="rounded-full bg-primary/10 p-2 transition-colors hover:bg-primary/20"
+                  className="rounded-full bg-gold/10 p-2 transition-colors hover:bg-gold/20"
                 >
-                  <Facebook className="h-5 w-5 text-primary" />
+                  <Facebook className="h-5 w-5 text-gold" />
                 </a>
                 <a
                   href="https://www.instagram.com/dr.andreea_nicolescu_ciobanoiu"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Instagram CMArt Dent"
-                  className="rounded-full bg-primary/10 p-2 transition-colors hover:bg-primary/20"
+                  className="rounded-full bg-gold/10 p-2 transition-colors hover:bg-gold/20"
                 >
-                  <Instagram className="h-5 w-5 text-primary" />
+                  <Instagram className="h-5 w-5 text-gold" />
                 </a>
                 <a
                   href="https://www.tiktok.com/@cmart917?_r=1&_t=ZN-97IOHjczBJv"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="TikTok CMArt Dent"
-                  className="rounded-full bg-primary/10 p-2 transition-colors hover:bg-primary/20"
+                  className="rounded-full bg-gold/10 p-2 transition-colors hover:bg-gold/20"
                 >
-                  <Music2 className="h-5 w-5 text-primary" />
+                  <Music2 className="h-5 w-5 text-gold" />
                 </a>
               </div>
             </div>
           </div>
 
-          <div className="mt-8 border-t pt-8 text-center text-sm text-muted-foreground">
+          <div className="mt-8 border-t border-gold/20 pt-8 text-center text-sm text-muted-foreground">
             <p>&copy; 2024 CMArt Dent. Toate drepturile rezervate.</p>
           </div>
         </div>
