@@ -288,11 +288,16 @@ const DentistryWebsite = () => {
       <nav className="sticky top-0 z-50 border-b border-gold/20 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container mx-auto px-4">
           <div className="flex h-16 items-center justify-between">
-            <div className="flex items-center">
+            <div className="flex min-w-0 items-center gap-3">
               <img
                 src={`${import.meta.env.BASE_URL}cmart-logo.png`}
                 alt="CMArt Dent"
-                className="h-10 w-auto object-contain sm:h-12"
+                className="h-10 w-auto shrink-0 object-contain sm:h-12"
+              />
+              <img
+                src={`${import.meta.env.BASE_URL}cmart-logo-text.png`}
+                alt="CMArt Dent"
+                className="h-8 w-auto max-w-[150px] object-contain sm:h-10 sm:max-w-[210px] md:max-w-[240px]"
               />
             </div>
 
@@ -356,6 +361,9 @@ const DentistryWebsite = () => {
                 Zambetul tau merita{" "}
                 <span className="text-gold">cea mai buna ingrijire</span>
               </h1>
+              <p className="mb-4 font-script text-3xl text-gold md:text-4xl">
+                by Dr. Andreea Nicolescu
+              </p>
               <div className="mb-6 h-px w-32 bg-gold/60" />
               <p className="text-lg text-muted-foreground mb-8">
                 Servicii stomatologice profesionale pentru pacienti si familii.
@@ -699,11 +707,16 @@ const DentistryWebsite = () => {
         <div className="container mx-auto px-4">
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-[1.25fr_0.8fr_1fr_0.85fr_0.85fr]">
             <div>
-              <div className="mb-4">
+              <div className="mb-4 flex items-center gap-4">
                 <img
                   src={`${import.meta.env.BASE_URL}cmart-logo.png`}
                   alt="CMArt Dent"
-                  className="mb-3 h-16 w-auto object-contain"
+                  className="h-16 w-auto shrink-0 object-contain"
+                />
+                <img
+                  src={`${import.meta.env.BASE_URL}cmart-logo-text.png`}
+                  alt="CMArt Dent"
+                  className="h-12 w-auto max-w-[220px] object-contain"
                 />
               </div>
               <p className="text-sm text-muted-foreground">
@@ -789,7 +802,7 @@ const DentistryWebsite = () => {
           </div>
 
           <div className="mt-8 border-t border-gold/20 pt-8 text-center text-sm text-muted-foreground">
-            <p>&copy; 2024 CMArt Dent. Toate drepturile rezervate.</p>
+            <p>&copy; 2026 CMArt Dent. Toate drepturile rezervate.</p>
           </div>
         </div>
       </footer>
