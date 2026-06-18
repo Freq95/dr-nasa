@@ -201,6 +201,7 @@ const AccordionItem = ({
 const DentistryWebsite = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [appointmentModalOpen, setAppointmentModalOpen] = useState(false);
+  const [floatingContactOpen, setFloatingContactOpen] = useState(false);
   const [expandedFaq, setExpandedFaq] = useState<number | null>(0);
   const dentistPhone = "+40767161774";
   const displayPhone = "+40 767 161 774";
@@ -216,6 +217,7 @@ const DentistryWebsite = () => {
   const callDentist = () => {
     window.location.href = `tel:${dentistPhone}`;
     setAppointmentModalOpen(false);
+    setFloatingContactOpen(false);
   };
 
   const openWhatsApp = () => {
@@ -225,6 +227,7 @@ const DentistryWebsite = () => {
       "noopener,noreferrer"
     );
     setAppointmentModalOpen(false);
+    setFloatingContactOpen(false);
   };
 
   const testimonials = [
@@ -806,6 +809,71 @@ const DentistryWebsite = () => {
           </div>
         </div>
       </footer>
+
+      <div className="fixed bottom-8 right-7 z-40 flex flex-col items-end gap-3 sm:bottom-10 sm:right-10">
+        <AnimatePresence>
+          {floatingContactOpen && (
+            <motion.div
+              className="flex flex-col items-end gap-3"
+              initial={{ opacity: 0, y: 12, scale: 0.96 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 12, scale: 0.96 }}
+              transition={{ duration: 0.18 }}
+            >
+              <button
+                type="button"
+                onClick={callDentist}
+                title={`Suna la ${displayPhone}`}
+                aria-label={`Suna la ${displayPhone}`}
+                className="flex h-14 w-14 items-center justify-center rounded-full border border-gold/50 bg-background text-gold shadow-lg transition hover:-translate-y-0.5 hover:border-gold hover:bg-gold-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2"
+              >
+                <Phone className="h-6 w-6" />
+              </button>
+              <button
+                type="button"
+                onClick={openWhatsApp}
+                title="Trimite mesaj pe WhatsApp"
+                aria-label="Trimite mesaj pe WhatsApp"
+                className="flex h-14 w-14 items-center justify-center rounded-full border border-gold/50 bg-background text-gold shadow-lg transition hover:-translate-y-0.5 hover:border-gold hover:bg-gold-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2"
+              >
+                <MessageCircle className="h-6 w-6" />
+              </button>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        <motion.button
+          type="button"
+          onClick={() => setFloatingContactOpen((open) => !open)}
+          aria-expanded={floatingContactOpen}
+          aria-label={floatingContactOpen ? "Inchide optiunile de contact" : "Deschide optiunile de contact"}
+          title={floatingContactOpen ? "Inchide" : "Contact rapid"}
+          className="flex h-16 w-16 items-center justify-center rounded-full border border-gold bg-primary text-primary-foreground shadow-xl shadow-gold/20 transition hover:-translate-y-0.5 hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2"
+          animate={
+            floatingContactOpen
+              ? { scale: 1, boxShadow: "0 20px 25px -5px rgb(203 153 80 / 0.2), 0 8px 10px -6px rgb(203 153 80 / 0.2)" }
+              : {
+                  scale: [1, 1.06, 1],
+                  boxShadow: [
+                    "0 18px 24px -8px rgb(203 153 80 / 0.2)",
+                    "0 22px 34px -8px rgb(203 153 80 / 0.38)",
+                    "0 18px 24px -8px rgb(203 153 80 / 0.2)",
+                  ],
+                }
+          }
+          transition={
+            floatingContactOpen
+              ? { duration: 0.18 }
+              : { duration: 2.6, repeat: Infinity, ease: "easeInOut" }
+          }
+        >
+          {floatingContactOpen ? (
+            <XIcon className="h-7 w-7" />
+          ) : (
+            <MessageCircle className="h-7 w-7" />
+          )}
+        </motion.button>
+      </div>
 
       <AnimatePresence>
         {appointmentModalOpen && (
